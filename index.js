@@ -4,6 +4,7 @@ const BodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config();
+const path = require("path");
 const fileUpload = require('express-fileupload');
 
 const app = express();
@@ -12,7 +13,16 @@ app.use(BodyParser.json());
 app.use(express.static('doctors'));
 app.use(fileUpload());
 
-const uri = `mongodb+srv://Sachinyadav9467:Sachin@00@cluster0.pbhih.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+
+
+// ... other app.use middleware 
+app.use(express.static(path.join(__dirname, "client", "build")));
+
+// ...
+// Right before your app.listen(), add this:
+
+
+const uri = process.env.MONGO_URI;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -23,6 +33,9 @@ client.connect((err) => {
 
 	console.log('DataBase Connected');
 
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 	//Routes -- Get method
 	// Root Route
 	app.get('/', (req, res) => res.send('Welcome to virtual Backed'));
