@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 // Right before your app.listen(), add this:
 
 
-const uri = process.env.MONGO_URI;
+const uri = process.env.URI;
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
