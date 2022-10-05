@@ -4,10 +4,12 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js",
-		"start:dev": "nodemon index.js",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+        "start": "node server.js",
+        "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
+    },
+    "engines": {
+        "node": "16.15.0"
+    },
 	"author": "Prionto",
 	"license": "ISC",
 	"dependencies": {
